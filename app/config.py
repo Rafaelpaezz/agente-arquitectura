@@ -23,6 +23,10 @@ def _env_float(nombre: str, defecto: float) -> float:
     return float(_env(nombre, str(defecto)))
 
 
+def _lista(nombre: str) -> tuple:
+    return tuple(x.strip() for x in _env(nombre).split(",") if x.strip())
+
+
 def _env_int(nombre: str, defecto: int) -> int:
     return int(_env(nombre, str(defecto)))
 
@@ -38,7 +42,8 @@ class ModeloLLM:
     modelo: str
     temperatura: float = 0.2
     max_tokens: int = 700
-    reasoning_effort: str = ""      # p. ej. "minimal" para reducir el "thinking" de Gemini 3; vacío = no se envía
+    reasoning_effort: str = ""      # p. ej. "low" para reducir el "thinking" de Gemini 3; vacío = no se envía
+    alternativos: tuple = ()        # modelos de respaldo si el principal está saturado o no existe (503/429/404)
 
 
 @dataclass(frozen=True)
@@ -54,6 +59,7 @@ class Config:
         temperatura=0.0,
         max_tokens=400,
         reasoning_effort=_env("DECISION_REASONING_EFFORT", ""),
+        alternativos=_lista("DECISION_FALLBACK_MODELS"),
     ))
 
     # Modelo que redacta la respuesta final.
@@ -66,6 +72,7 @@ class Config:
         temperatura=_env_float("ANSWER_TEMPERATURE", 0.2),
         max_tokens=_env_int("ANSWER_MAX_TOKENS", 1200),
         reasoning_effort=_env("ANSWER_REASONING_EFFORT", ""),
+        alternativos=_lista("ANSWER_FALLBACK_MODELS"),
     ))
 
     # Few-shot dinámico: on | off  y criterio: clasificacion | similitud

@@ -163,6 +163,9 @@ class Agente:
                          "Intente de nuevo en un momento.")
             return self._cerrar(traza, respuesta, "error", tipo, guardar)
         traza.latencia("redaccion", time.perf_counter() - t)
+        usado = getattr(self.cliente_redaccion, "ultimo_modelo", None)
+        if usado and usado != getattr(self.cliente_redaccion, "nombre", usado):
+            traza.paso("respaldo_modelo", principal=self.cliente_redaccion.nombre, usado=usado)
 
         # 6. Revisar citas
         permitidas = {r.fragmento.cita() for r in resultados}

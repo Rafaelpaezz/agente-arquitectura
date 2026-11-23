@@ -102,3 +102,30 @@ def test_sin_fewshot_no_hay_ejemplos(agente):
     agente.responder("¿Qué es una CDN?", fewshot=False, guardar=False)
     roles = [m["role"] for m in agente.cliente_redaccion.ultimos_mensajes]
     assert roles == ["system", "user"]
+
+
+def test_respaldo_de_modelo(monkeypatch):
+    """Si el modelo principal responde 503, el cliente prueba con el de respaldo."""
+    import httpx
+    from openai import InternalServerError
+
+    from app.config import ModeloLLM
+    from app.llm import ClienteLLM
+
+    llamados = []
+
+    class Completions:
+        def create(self, model, **_):
+            llamados.append(model)
+            if model == "principal":
+                req = httpx.Request("POST", "http://x")
+                raise InternalServerError("saturado", response=httpx.Response(503, request=req), body=None)
+
+            class R:
+                choices = [type("C", (), {"message": type("M", (), {"content": "ok"})()})()]
+            return R()
+
+    c = ClienteLLM(ModeloLLM("http://x", "k", "principal", alternativos=("respaldo",)))
+    c._cliente = type("O", (), {"chat": type("Ch", (), {"completions": Completions()})()})()
+    texto, _ = c.chat([{"role": "user", "content": "hola"}])
+    assert texto == "ok" and llamados == ["principal", "respaldo"] and c.ultimo_modelo == "respaldo"
