@@ -1,0 +1,40 @@
+{
+  "modelo_base": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+  "max_seq_length": 4096,
+  "lora": {
+    "r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  },
+  "hiperparametros": {
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 4,
+    "num_train_epochs": 3,
+    "learning_rate": 0.0002,
+    "warmup_steps": 5,
+    "lr_scheduler_type": "linear",
+    "weight_decay": 0.01,
+    "optim": "adamw_8bit",
+    "seed": 2026
+  },
+  "ejemplos_train": 100,
+  "ejemplos_validacion": 10,
+  "gpu": "Tesla T4",
+  "segundos_entrenamiento": 394.0652,
+  "perdida_final": 0.8199118673801422,
+  "versiones": {
+    "torch": "2.14.1+cu130",
+    "transformers": "5.17.0",
+    "trl": "1.15.0",
+    "peft": "0.21.2"
+  }
+}
