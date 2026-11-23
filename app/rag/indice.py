@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import re
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -15,8 +17,26 @@ from app.rag.fragmentacion import Fragmento
 @dataclass
 class Resultado:
     fragmento: Fragmento
-    puntaje: float     # similitud coseno en [-1, 1]
-    posicion: int      # 1 = el más parecido
+    puntaje: float       # similitud coseno semántica (embeddings) en [-1, 1]; la usa el umbral
+    posicion: int        # 1 = el más relevante
+    bono: float = 0.0    # bono por términos de la pregunta presentes en el título de la sección
+
+
+# Bono por cada término de la pregunta que aparece en la ruta de secciones del fragmento
+# (p. ej. "write-through" en "Cache > When to update the cache > Write-through").
+# Los embeddings multilingües diluyen los términos técnicos en inglés dentro de una pregunta en
+# español; el título de la sección es la señal más precisa de qué trata el fragmento.
+BONO_POR_TERMINO = 0.08
+BONO_MAXIMO = 0.16
+_VACIAS = set("""para como cual cuales donde cuando entre sobre esta este esto estos estas tiene tienen
+debo deberia puede pueden hace hacer usar uso sirve sirven funciona significa explica explicame dime
+que qué cómo cuál porque desde hasta segun según patron patrón sistema""".split())
+
+
+def _terminos(texto: str) -> set[str]:
+    texto = unicodedata.normalize("NFKD", texto.lower())
+    texto = "".join(c for c in texto if not unicodedata.combining(c))
+    return {t for t in re.findall(r"[a-z0-9][a-z0-9\-]+", texto) if len(t) >= 4 and t not in _VACIAS}
 
 
 def construir_indice(fragmentos: list[Fragmento], backend: str, modelo: str, dir_indice: Path,
@@ -50,12 +70,28 @@ class Recuperador:
         with open(dir_indice / "fragmentos.jsonl", encoding="utf-8") as f:
             self.fragmentos = [Fragmento(**json.loads(l)) for l in f]
         self.embedder = crear_embedder(backend, modelo, dir_indice, cache)
+        self._titulos = [_terminos(f.seccion) for f in self.fragmentos]
 
     def buscar(self, consulta: str, k: int = 5) -> list[Resultado]:
-        vector = self.embedder.consulta(consulta)
-        puntajes, ids = self.indice.search(vector, k)
-        return [Resultado(self.fragmentos[i], float(p), pos + 1)
-                for pos, (p, i) in enumerate(zip(puntajes[0], ids[0])) if i >= 0]
+        """1. Similitud semántica (coseno de embeddings) contra TODOS los fragmentos.
+        2. Bono si términos de la pregunta aparecen en el título de la sección (máx. 0,16).
+        3. Se ordena por semántica + bono y se devuelven los k primeros.
+        El puntaje reportado sigue siendo el semántico puro (ver ADR 0002)."""
+        n = len(self.fragmentos)
+        sem, ids = self.indice.search(self.embedder.consulta(consulta), n)
+        terminos = _terminos(consulta)
+        candidatos = []
+        for p, i in zip(sem[0], ids[0]):
+            bono = min(BONO_MAXIMO, BONO_POR_TERMINO * len(terminos & self._titulos[i]))
+            candidatos.append((float(p) + bono, float(p), bono, int(i)))
+        candidatos.sort(key=lambda c: -c[0])
+        return [Resultado(self.fragmentos[i], p, pos + 1, bono)
+                for pos, (_, p, bono, i) in enumerate(candidatos[:k])]
+
+    def mejor_puntaje(self, consulta: str) -> float:
+        """Similitud semántica del fragmento más parecido: decide si hay evidencia en el corpus."""
+        sem, _ = self.indice.search(self.embedder.consulta(consulta), 1)
+        return float(sem[0][0])
 
 
 def contexto_para_prompt(resultados: list[Resultado]) -> str:

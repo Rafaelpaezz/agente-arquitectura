@@ -1,21 +1,22 @@
 # Evaluación de la recuperación (RAG)
 
 Modelo de embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 (fastembed). Fragmentos indexados: 256. **k = 5**.
+Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,16).
 Acierto: alguno de los k fragmentos recuperados pertenece al documento y sección esperados (o a una subsección).
 
 | Métrica | Valor |
 |---|---|
 | Preguntas | 19 |
-| Fragmento correcto en la posición 1 | 10 de 19 (53%) |
-| Fragmento correcto entre los 3 primeros | 16 de 19 (84%) |
+| Fragmento correcto en la posición 1 | 12 de 19 (63%) |
+| Fragmento correcto entre los 3 primeros | 17 de 19 (89%) |
 | **Fragmento correcto entre los 5 primeros** | **18 de 19 (95%)** |
-| MRR@5 | 0.684 |
+| MRR@5 | 0.759 |
 
 ## Calibración del umbral (RAG_MIN_SCORE)
 
 * Puntaje máximo del 1.º fragmento en 5 preguntas fuera del corpus: **0.397**
-* Puntaje mínimo del fragmento correcto en las preguntas acertadas: **0.359**
-* Umbral configurado: 0.30 · umbral sugerido (punto medio): **0.38**
+* Mejor puntaje mínimo entre las 19 preguntas del conjunto de evaluación: **0.398**
+* Umbral configurado: 0.38 · umbral sugerido (punto medio): **0.40**
 
 | Id | Pregunta | Fuente esperada | Posición del correcto | Puntaje del 1.º | 1.º recuperado |
 |---|---|---|---|---|---|
@@ -23,8 +24,8 @@ Acierto: alguno de los k fragmentos recuperados pertenece al documento y secció
 | EV-02 | En CAP, ¿qué implica escoger disponibilidad y tolerancia a p | SDP §m > AP - availability and partition tolerance | 2 | 0.591 | [SDP, §Availability vs consistency > CAP theorem > CP - cons |
 | EV-03 | ¿Cómo funciona el failover activo-pasivo? | SDP §ability patterns > Fail-over > Active-passive | 1 | 0.668 | [SDP, §Availability patterns > Fail-over > Active-passive] |
 | EV-04 | ¿Qué pasos sigue el patrón cache-aside al leer un dato? | SDP §ache > When to update the cache > Cache-aside | 1 | 0.678 | [SDP, §Cache > When to update the cache > Cache-aside] |
-| EV-05 | ¿Qué riesgo tiene write-behind frente a escribir de inmediat | SDP § update the cache > Write-behind (write-back) | 3 | 0.402 | [ARC42, §Requerimientos de Calidad > Escenarios de calidad] |
-| EV-06 | ¿Qué es el sharding y qué ventajas da? | SDP §database management system (RDBMS) > Sharding | 2 | 0.398 | [ARC42, §Requerimientos de Calidad > Escenarios de calidad] |
+| EV-05 | ¿Qué riesgo tiene write-behind frente a escribir de inmediat | SDP § update the cache > Write-behind (write-back) | 1 | 0.390 | [SDP, §Cache > When to update the cache > Write-behind (writ |
+| EV-06 | ¿Qué es el sharding y qué ventajas da? | SDP §database management system (RDBMS) > Sharding | 1 | 0.359 | [SDP, §Database > Relational database management system (RDB |
 | EV-07 | ¿Qué ofrecen Redis, RabbitMQ y Amazon SQS como colas de mens | SDP §Asynchronism > Message queues | no | 0.476 | [ADR-AGENTE, §ADR 0004. Canal de mensajería y despliegue > C |
 | EV-08 | ¿Qué es back pressure y qué recibe el cliente cuando la cola | SDP §Asynchronism > Back pressure | 1 | 0.498 | [SDP, §Asynchronism > Back pressure] |
 | EV-09 | Quiero enviar el tráfico de video a unos servidores y el de  | SDP §Load balancer > Layer 7 load balancing | 1 | 0.567 | [SDP, §Load balancer > Layer 7 load balancing] |
@@ -35,6 +36,6 @@ Acierto: alguno de los k fragmentos recuperados pertenece al documento y secció
 | EV-14 | ¿Qué es el árbol de calidad en arc42? | ARC42 §Requerimientos de Calidad > Árbol de Calidad | 1 | 0.647 | [ARC42, §Requerimientos de Calidad > Árbol de Calidad] |
 | EV-15 | ¿Qué tipos de escenarios de calidad distingue arc42? | ARC42 §erimientos de Calidad > Escenarios de calidad | 1 | 0.569 | [ARC42, §Requerimientos de Calidad > Escenarios de calidad] |
 | EV-16 | ¿Qué decisiones se documentan en la sección de decisiones de | ARC42 §Decisiones de Diseño | 1 | 0.625 | [ARC42, §Decisiones de Diseño] |
-| EV-17 | ¿Qué se escribe en la sección 'Decision Drivers' de un ADR c | MADR §Plantilla > Decision Drivers | 4 | 0.623 | [MADR, §Markdown Architectural Decision Records > Using MADR |
+| EV-17 | ¿Qué se escribe en la sección 'Decision Drivers' de un ADR c | MADR §Plantilla > Decision Drivers | 2 | 0.623 | [MADR, §Markdown Architectural Decision Records > Using MADR |
 | EV-18 | Mi API tiene una operación que tarda minutos en completarse. | MSAPI § for Service Design > Long-Running Operations | 1 | 0.648 | [MSAPI, §Considerations for Service Design > Long-Running Op |
 | EV-19 | ¿Cómo funciona la paginación dirigida por el servidor? | MSAPI §ce Design > Pagination > Server-driven paging | 4 | 0.543 | [SDP, §Cache > Web server caching] |

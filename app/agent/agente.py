@@ -178,17 +178,22 @@ class Agente:
 
     # ------------------------------------------------------------ auxiliares
     def _recuperar(self, consulta: str, traza: Traza, k: int | None = None) -> list[Resultado]:
+        """Compuerta de evidencia + búsqueda.
+        Si el fragmento semánticamente más parecido no supera el umbral, el corpus no cubre la
+        pregunta y no se devuelve nada. Si lo supera, se entregan los k primeros fragmentos."""
         if self.recuperador is None:
             traza.paso("recuperar", error="no hay índice cargado")
             return []
+        k = k or self.cfg.rag_k
         t = time.perf_counter()
-        todos = self.recuperador.buscar(consulta, k or self.cfg.rag_k)
+        mejor = self.recuperador.mejor_puntaje(consulta)
+        resultados = self.recuperador.buscar(consulta, k) if mejor >= self.cfg.rag_umbral else []
         traza.latencia("recuperacion", time.perf_counter() - t)
-        utiles = [r for r in todos if r.puntaje >= self.cfg.rag_umbral]
-        traza.paso("recuperar", consulta=consulta, k=k or self.cfg.rag_k, umbral=self.cfg.rag_umbral,
-                   resultados=[{"pos": r.posicion, "cita": r.fragmento.cita(), "puntaje": round(r.puntaje, 3),
-                                "usado": r.puntaje >= self.cfg.rag_umbral} for r in todos])
-        return utiles
+        traza.paso("recuperar", consulta=consulta, k=k, umbral=self.cfg.rag_umbral, mejor_puntaje=round(mejor, 3),
+                   hay_evidencia=mejor >= self.cfg.rag_umbral,
+                   resultados=[{"pos": r.posicion, "cita": r.fragmento.cita(), "semantico": round(r.puntaje, 3),
+                                "bono_titulo": round(r.bono, 3)} for r in resultados])
+        return resultados
 
     def _usar_herramienta(self, pregunta: str, expresion: str | None, traza: Traza) -> tuple[str | None, str | None]:
         """Devuelve (resumen_del_resultado, error). Un reintento si el modelo extrae mal la topología."""

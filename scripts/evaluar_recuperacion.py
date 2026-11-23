@@ -53,13 +53,11 @@ def main() -> None:
 
     n = len(preguntas)
     # Calibración del umbral: puntaje del 1.º fragmento en preguntas fuera del corpus vs. aciertos
-    fuera = [rec.buscar(q, 1)[0].puntaje for q in FUERA_DEL_CORPUS]
-    puntajes_acierto = []
-    for d in preguntas:
-        res = rec.buscar(d["pregunta"], args.k)
-        puntajes_acierto += [r.puntaje for r in res if coincide(r.fragmento, d["fuente"])][:1]
-    min_acierto = min(puntajes_acierto) if puntajes_acierto else 0.0
-    sugerido = (max(fuera) + min_acierto) / 2 if puntajes_acierto else cfg.rag_umbral
+    # La compuerta de evidencia usa el mejor puntaje semántico de la consulta.
+    fuera = [rec.mejor_puntaje(q) for q in FUERA_DEL_CORPUS]
+    dentro = [rec.mejor_puntaje(d["pregunta"]) for d in preguntas]
+    min_acierto = min(dentro)
+    sugerido = (max(fuera) + min_acierto) / 2
     salida = RAIZ / "evidencias" / "recuperacion_top_k.md"
     salida.parent.mkdir(parents=True, exist_ok=True)
     salida.write_text("\n".join([
@@ -67,6 +65,7 @@ def main() -> None:
         "",
         f"Modelo de embeddings: {rec.meta['modelo']} ({rec.meta['backend']}). Fragmentos indexados: {rec.meta['fragmentos']}. "
         f"**k = {args.k}**.",
+        "Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,16).",
         "Acierto: alguno de los k fragmentos recuperados pertenece al documento y sección esperados (o a una subsección).",
         "",
         "| Métrica | Valor |",
@@ -80,7 +79,7 @@ def main() -> None:
         "## Calibración del umbral (RAG_MIN_SCORE)",
         "",
         f"* Puntaje máximo del 1.º fragmento en {len(FUERA_DEL_CORPUS)} preguntas fuera del corpus: **{max(fuera):.3f}**",
-        f"* Puntaje mínimo del fragmento correcto en las preguntas acertadas: **{min_acierto:.3f}**",
+        f"* Mejor puntaje mínimo entre las {n} preguntas del conjunto de evaluación: **{min_acierto:.3f}**",
         f"* Umbral configurado: {cfg.rag_umbral:.2f} · umbral sugerido (punto medio): **{sugerido:.2f}**",
         "",
         "| Id | Pregunta | Fuente esperada | Posición del correcto | Puntaje del 1.º | 1.º recuperado |",

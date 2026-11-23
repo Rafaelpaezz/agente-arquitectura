@@ -129,3 +129,8 @@ def test_respaldo_de_modelo(monkeypatch):
     c._cliente = type("O", (), {"chat": type("Ch", (), {"completions": Completions()})()})()
     texto, _ = c.chat([{"role": "user", "content": "hola"}])
     assert texto == "ok" and llamados == ["principal", "respaldo"] and c.ultimo_modelo == "respaldo"
+
+
+def test_busqueda_hibrida_encuentra_termino_tecnico(agente):
+    res = agente.recuperador.buscar("¿Qué es el patrón write-through?", 5)
+    assert any("Write-through" in r.fragmento.seccion for r in res)
