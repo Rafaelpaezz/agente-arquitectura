@@ -7,9 +7,9 @@ corpus/externo/*
 !corpus/externo/README.md
 
 # Artefactos generados
-indice/
-trazas/
-modelos/
+/indice/
+/trazas/
+/modelos/
 *.gguf
 __pycache__/
 *.pyc
