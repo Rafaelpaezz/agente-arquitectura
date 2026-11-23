@@ -1,0 +1,10 @@
+{"id": "CMP-01", "tipo": "compromisos", "pregunta": "En un sistema de pagos, ¿por qué podría no bastar con que las réplicas se pongan al día tarde o temprano?"}
+{"id": "CMP-02", "tipo": "conceptual", "pregunta": "Según twelve-factor, ¿qué debe pasar con un trabajo en curso cuando un worker recibe la señal SIGTERM?"}
+{"id": "CMP-03", "tipo": "seleccion", "pregunta": "En mi API, borrar un recurso tarda varios minutos. ¿Cómo debería responder la operación DELETE?"}
+{"id": "CMP-04", "tipo": "seleccion", "pregunta": "Quiero repartir la tabla de usuarios en varias bases según la inicial del apellido. ¿Qué técnica es y qué cuidados debo tener?"}
+{"id": "CMP-05", "tipo": "compromisos", "pregunta": "Cache-aside o write-through: ¿cuál deja los datos más frescos y cuál penaliza menos las escrituras?"}
+{"id": "CMP-06", "tipo": "compromisos", "pregunta": "Si mi sistema prefiere seguir respondiendo durante una partición de red aunque devuelva datos viejos, ¿qué estoy sacrificando?"}
+{"id": "CMP-07", "tipo": "calculo", "pregunta": "La plataforma de matrículas de la universidad tiene un firewall de 99.95%, dos servidores web en paralelo de 99.5% cada uno y una base de datos PostgreSQL de 99.9%. ¿Qué disponibilidad tiene y qué debería reforzar primero?", "expresion_esperada": "serie(firewall=99.95%, paralelo(web1=99.5%, web2=99.5%), postgres=99.9%)"}
+{"id": "CMP-08", "tipo": "calculo", "pregunta": "Un almacenamiento distribuido guarda los datos en 5 nodos de 97% y necesita al menos 3 nodos vivos para responder. ¿Cuál es su disponibilidad?", "expresion_esperada": "kden(3, 5, nodo=97%)"}
+{"id": "CMP-09", "tipo": "calculo", "pregunta": "Calcula la disponibilidad de serie(cdn=99.99%, paralelo(serie(web1=99.9%, cache1=99.5%), serie(web2=99.9%, cache2=99.5%)), pagos=99.8%)", "expresion_esperada": "serie(cdn=99.99%, paralelo(serie(web1=99.9%, cache1=99.5%), serie(web2=99.9%, cache2=99.5%)), pagos=99.8%)"}
+{"id": "CMP-10", "tipo": "compromisos", "pregunta": "¿Por qué cambiar el código de estado HTTP que devuelve un error de mi API se considera un cambio que rompe compatibilidad?"}

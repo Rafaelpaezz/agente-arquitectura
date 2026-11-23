@@ -1,0 +1,59 @@
+# Despliegue del agente.
+#   Ruta 2 (solo API):            docker compose up -d --build agente
+#   Ruta 1 (modelo propio):       docker compose --profile ruta1 up -d --build
+#
+# Con long polling el bot no expone puertos: no hace falta dominio, IP pública ni certificado.
+
+services:
+  agente:
+    build: .
+    image: agente-arquitectura:latest
+    env_file: .env
+    environment:
+      - INDEX_DIR=/app/indice
+      - TRACES_DIR=/app/trazas
+      - MODELS_CACHE_DIR=/app/modelos
+    restart: unless-stopped
+    volumes:
+      - indice:/app/indice                       # índice FAISS (se reconstruye si cambia el corpus)
+      - ./trazas:/app/trazas                     # trazas JSONL, visibles en el host
+      - ./evidencias:/app/evidencias             # reportes de evaluación y comparación
+      - modelos:/app/modelos                     # caché del modelo de embeddings
+      - ./corpus/externo:/app/corpus/externo:ro  # PDF no redistribuibles, cargados a mano
+    depends_on:
+      ollama:
+        condition: service_healthy
+        required: false                          # en la Ruta 2 no se levanta Ollama
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ruta1"]
+    restart: unless-stopped
+    volumes:
+      - ollama:/root/.ollama
+      - ./deploy/ollama:/modelfiles:ro          # Modelfile + archivo .gguf del modelo ajustado
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h                   # mantiene el modelo cargado en RAM (evita arranques en frío)
+      - OLLAMA_NUM_PARALLEL=1
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+    deploy:
+      resources:
+        limits:
+          memory: 5g
+    # Sin "ports": solo el agente lo usa, por la red interna de compose (http://ollama:11434)
+
+volumes:
+  indice:
+  modelos:
+  ollama:

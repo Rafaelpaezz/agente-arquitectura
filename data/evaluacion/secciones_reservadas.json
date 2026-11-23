@@ -1,0 +1,133 @@
+{
+  "descripcion": "Secciones del corpus reservadas para evaluación. Ningún ejemplo del banco (ni del dataset de fine-tuning) puede usarlas como fuente. Se definieron ANTES de escribir el banco.",
+  "secciones": [
+    {
+      "doc": "SDP",
+      "seccion": "Availability vs consistency > CAP theorem > AP - availability and partition tolerance"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Consistency patterns > Eventual consistency"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Availability patterns > Fail-over > Active-passive"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Availability patterns > Availability in numbers > 99.99% availability - four 9s"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Load balancer > Layer 7 load balancing"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Reverse proxy (web server) > Load balancer vs reverse proxy"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Database > Relational database management system (RDBMS) > Sharding"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Database > Relational database management system (RDBMS) > Sharding > Disadvantage(s): sharding"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Cache > When to update the cache > Cache-aside"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Cache > When to update the cache > Cache-aside > Disadvantage(s): cache-aside"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Cache > When to update the cache > Write-behind (write-back)"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Cache > When to update the cache > Write-behind (write-back) > Disadvantage(s): write-behind"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Asynchronism > Message queues"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Asynchronism > Back pressure"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Communication > Remote procedure call (RPC)"
+    },
+    {
+      "doc": "SDP",
+      "seccion": "Communication > Remote procedure call (RPC) > Disadvantage(s): RPC"
+    },
+    {
+      "doc": "12F",
+      "seccion": "III. Config > Store config in the environment"
+    },
+    {
+      "doc": "12F",
+      "seccion": "VI. Processes > Execute the app as one or more stateless processes"
+    },
+    {
+      "doc": "12F",
+      "seccion": "IX. Disposability > Maximize robustness with fast startup and graceful shutdown"
+    },
+    {
+      "doc": "ARC42",
+      "seccion": "Requerimientos de Calidad > Árbol de Calidad"
+    },
+    {
+      "doc": "ARC42",
+      "seccion": "Requerimientos de Calidad > Escenarios de calidad"
+    },
+    {
+      "doc": "ARC42",
+      "seccion": "Decisiones de Diseño"
+    },
+    {
+      "doc": "MADR",
+      "seccion": "Plantilla > Decision Drivers"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Long-Running Operations"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Long-Running Operations > Create or replace a resource requiring additional long-running processing"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Long-Running Operations > Long-running delete operation"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Long-Running Operations > Long-running Action Operations"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Long-Running Operations > Long-running action operation not related to a resource"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Long-Running Operations > Controlling a long-running operation"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Pagination"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Pagination > Server-driven paging"
+    },
+    {
+      "doc": "MSAPI",
+      "seccion": "Considerations for Service Design > Pagination > Client-driven paging"
+    }
+  ]
+}

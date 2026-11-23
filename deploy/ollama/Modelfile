@@ -1,0 +1,24 @@
+# Modelo ajustado (QLoRA) en formato GGUF para Ollama.
+# El archivo .gguf se descarga del notebook de entrenamiento y se copia a esta carpeta
+# (no se versiona: está en .gitignore por su tamaño, ~2 GB).
+#
+# Registrar el modelo dentro del contenedor:
+#   docker compose --profile ruta1 exec ollama ollama create arqui-qwen2.5-3b-ft -f /modelfiles/Modelfile
+# Modelo base para la comparación (sin ajuste):
+#   docker compose --profile ruta1 exec ollama ollama pull qwen2.5:3b-instruct
+
+FROM /modelfiles/arqui-qwen2.5-3b-ft.Q4_K_M.gguf
+
+# Plantilla ChatML de Qwen2.5 (la misma con la que se entrenó)
+TEMPLATE """{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{- range .Messages }}<|im_start|>{{ .Role }}
+{{ .Content }}<|im_end|>
+{{ end }}<|im_start|>assistant
+"""
+
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|im_start|>"
+PARAMETER temperature 0.2
+PARAMETER num_ctx 4096
+PARAMETER num_thread 4

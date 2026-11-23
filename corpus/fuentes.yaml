@@ -1,0 +1,122 @@
+# Manifiesto del corpus del RAG.
+# Cada documento tiene un id corto (se usa en las citas), su referencia completa,
+# la licencia y si se puede redistribuir en el repositorio.
+#
+# - abierto/  : documentos con licencia libre, incluidos en el repo (con su LICENSE).
+# - ../docs/adr: registros de decisión de arquitectura (ADR) redactados por el estudiante.
+# - externo/  : documentos cuya licencia NO permite redistribuirlos. No se suben al repo
+#               (carpeta en .gitignore). Se publica la referencia y el procedimiento de
+#               carga local (ver corpus/externo/README.md).
+
+documentos:
+  - id: SDP
+    titulo: "The System Design Primer"
+    alcance: "secciones de temas: rendimiento, disponibilidad, consistencia, bases de datos, caché, asincronía, comunicación, seguridad"
+    autor: "Donne Martin y colaboradores"
+    tipo: "documentación técnica abierta"
+    url: "https://github.com/donnemartin/system-design-primer"
+    version: "commit ae9bbd7b02d90b9866215de185217d33f39ab733 (README.md, líneas 412-1576)"
+    licencia: "CC BY 4.0 (extracto, sin modificar el texto)"
+    redistribuible: true
+    ruta: "abierto/system-design-primer"
+
+  - id: 12F
+    titulo: "The Twelve-Factor App"
+    autor: "Adam Wiggins"
+    tipo: "documentación técnica / metodología"
+    url: "https://12factor.net"
+    version: "repo 12factor/12factor, commit 1ec1d77311408f09dd66631bdd20e6fb210e2f28 (content/en)"
+    licencia: "MIT"
+    redistribuible: true
+    ruta: "abierto/twelve-factor"
+
+  - id: ARC42
+    titulo: "Plantilla arc42 para documentación de arquitectura (versión en español)"
+    autor: "Gernot Starke y Peter Hruschka"
+    tipo: "estándar de facto de documentación de arquitectura"
+    url: "https://arc42.org  /  https://github.com/arc42/arc42-template"
+    version: "commit 9057fe1f32ce543e546f76971515c537f0dd3f63 (ES/adoc)"
+    licencia: "CC BY-SA 4.0"
+    redistribuible: true
+    ruta: "abierto/arc42-es"
+
+  - id: MADR
+    titulo: "MADR - Markdown Architectural Decision Records (plantilla y guía)"
+    autor: "Oliver Kopp, Olaf Zimmermann y colaboradores"
+    tipo: "plantilla / buena práctica de ADR"
+    url: "https://adr.github.io/madr/"
+    version: "repo adr/madr, commit ba75bb1b20d42af5746b246ad348c202419ae681"
+    licencia: "MIT / CC0-1.0"
+    redistribuible: true
+    ruta: "abierto/madr"
+
+  - id: MSAPI
+    titulo: "Microsoft Azure REST API Guidelines: Considerations for Service Design y Versioning"
+    autor: "Microsoft"
+    tipo: "documentación oficial de plataforma"
+    url: "https://github.com/microsoft/api-guidelines/tree/vNext/azure"
+    version: "commit 1c58ca7f1eb51768cb4e21facd6ce0154ee4db64"
+    licencia: "CC BY 4.0"
+    redistribuible: true
+    ruta: "abierto/microsoft-api-guidelines"
+
+  - id: ADR-AGENTE
+    titulo: "Registros de decisión de arquitectura del agente (redactados por el estudiante)"
+    autor: "Mateo Acosta López"
+    tipo: "registros de decisión de arquitectura"
+    url: "docs/adr/ (este repositorio)"
+    version: "ver historial de git"
+    licencia: "propia"
+    redistribuible: true
+    ruta: "../docs/adr"
+
+  # ---------- Documentos externos (no redistribuibles: solo referencia) ----------
+  - id: ATAM
+    titulo: "ATAM: Method for Architecture Evaluation (CMU/SEI-2000-TR-004)"
+    autor: "Rick Kazman, Mark Klein, Paul Clements"
+    tipo: "reporte técnico"
+    url: "https://insights.sei.cmu.edu/library/atam-method-for-architecture-evaluation/"
+    version: "agosto 2000"
+    licencia: "Copyright Carnegie Mellon University: no se redistribuye"
+    redistribuible: false
+    ruta: "externo/ATAM_CMU-SEI-2000-TR-004.pdf"
+
+  - id: ISO25010
+    titulo: "ISO/IEC 25010:2023 Systems and software engineering — SQuaRE — Product quality model"
+    autor: "ISO/IEC JTC 1/SC 7"
+    tipo: "estándar"
+    url: "https://www.iso.org/standard/78176.html"
+    version: "2023"
+    licencia: "Copyright ISO (documento de pago): no se redistribuye"
+    redistribuible: false
+    ruta: "externo/ISO_IEC_25010_2023.pdf"
+
+  - id: ISO42010
+    titulo: "ISO/IEC/IEEE 42010:2022 Software, systems and enterprise — Architecture description"
+    autor: "ISO/IEC/IEEE"
+    tipo: "estándar"
+    url: "https://www.iso.org/standard/74393.html"
+    version: "2022"
+    licencia: "Copyright ISO/IEEE: no se redistribuye"
+    redistribuible: false
+    ruta: "externo/ISO_IEC_IEEE_42010_2022.pdf"
+
+  - id: SRE
+    titulo: "Site Reliability Engineering, cap. 3 'Embracing Risk' y cap. 4 'Service Level Objectives'"
+    autor: "Beyer, Jones, Petoff, Murphy (Google)"
+    tipo: "libro técnico (publicado en línea por Google)"
+    url: "https://sre.google/sre-book/table-of-contents/"
+    version: "O'Reilly, 2016"
+    licencia: "CC BY-NC-ND 4.0: no se permiten obras derivadas; se carga localmente"
+    redistribuible: false
+    ruta: "externo/SRE_cap3_cap4.pdf"
+
+  - id: WAF
+    titulo: "Microsoft Azure Well-Architected Framework (pilares de confiabilidad y rendimiento)"
+    autor: "Microsoft"
+    tipo: "documentación oficial de plataforma"
+    url: "https://learn.microsoft.com/es-es/azure/well-architected/"
+    version: "consultado en noviembre de 2026"
+    licencia: "Términos de uso de Microsoft Learn: se carga localmente"
+    redistribuible: false
+    ruta: "externo/Azure_Well_Architected.pdf"

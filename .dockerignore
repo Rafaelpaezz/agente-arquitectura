@@ -1,0 +1,11 @@
+.env
+.git
+indice/
+trazas/
+modelos/
+deploy/
+corpus/externo/*.pdf
+notebooks/
+**/__pycache__
+.pytest_cache
+*.gguf
