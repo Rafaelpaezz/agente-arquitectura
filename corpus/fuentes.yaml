@@ -62,7 +62,7 @@ documentos:
 
   - id: ADR-AGENTE
     titulo: "Registros de decisión de arquitectura del agente (redactados por el estudiante)"
-    autor: "Mateo Acosta López"
+    autor: "Rafael Páez Martínez"
     tipo: "registros de decisión de arquitectura"
     url: "docs/adr/ (este repositorio)"
     version: "ver historial de git"
@@ -109,7 +109,7 @@ documentos:
     version: "O'Reilly, 2016"
     licencia: "CC BY-NC-ND 4.0: no se permiten obras derivadas; se carga localmente"
     redistribuible: false
-    ruta: "externo/SRE_cap3_cap4.pdf"
+    ruta: "externo/sre"
 
   - id: WAF
     titulo: "Microsoft Azure Well-Architected Framework (pilares de confiabilidad y rendimiento)"
