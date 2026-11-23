@@ -1,0 +1,8 @@
+4
+Model name:                              AMD EPYC 7763 64-Core Processor
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       5.6Gi       326Mi       4.2Mi       2.1Gi       2.2Gi
+Swap:             0B          0B          0B
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        61G   18G   44G  30% /
+Linux vm-agente 7.0.0-1020-azure #21~24.04.2-Ubuntu SMP PREEMPT Tue Nov 10 01:36:36 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
