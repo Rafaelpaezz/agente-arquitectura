@@ -219,7 +219,7 @@ class Agente:
         if error_previo:
             mensajes.append({"role": "user", "content": f"{error_previo}. Corrige la expresión."})
         try:
-            texto, _ = self.cliente_decision.chat(mensajes, temperatura=0.0, max_tokens=200, json=True)
+            texto, _ = self.cliente_decision.chat(mensajes, temperatura=0.0, max_tokens=400, json=True)
             datos = json.loads(re.search(r"\{.*\}", texto, re.S).group(0))
             return datos.get("expresion"), datos.get("falta")
         except Exception as e:  # noqa: BLE001

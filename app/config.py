@@ -38,7 +38,7 @@ class ModeloLLM:
     modelo: str
     temperatura: float = 0.2
     max_tokens: int = 700
-    reasoning_effort: str = ""      # p. ej. "none" para apagar el "thinking" de Gemini 2.5; vacío = no se envía
+    reasoning_effort: str = ""      # p. ej. "minimal" para reducir el "thinking" de Gemini 3; vacío = no se envía
 
 
 @dataclass(frozen=True)
@@ -50,9 +50,9 @@ class Config:
     decision: ModeloLLM = field(default_factory=lambda: ModeloLLM(
         base_url=_env("DECISION_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/"),
         api_key=_env("DECISION_API_KEY"),
-        modelo=_env("DECISION_MODEL", "gemini-2.5-flash"),
+        modelo=_env("DECISION_MODEL", "gemini-3.8-flash"),
         temperatura=0.0,
-        max_tokens=300,
+        max_tokens=400,
         reasoning_effort=_env("DECISION_REASONING_EFFORT", ""),
     ))
 
@@ -64,7 +64,7 @@ class Config:
         api_key=_env("ANSWER_API_KEY", "ollama"),
         modelo=_env("ANSWER_MODEL", "arqui-qwen2.5-3b-ft"),
         temperatura=_env_float("ANSWER_TEMPERATURE", 0.2),
-        max_tokens=_env_int("ANSWER_MAX_TOKENS", 700),
+        max_tokens=_env_int("ANSWER_MAX_TOKENS", 1200),
         reasoning_effort=_env("ANSWER_REASONING_EFFORT", ""),
     ))
 

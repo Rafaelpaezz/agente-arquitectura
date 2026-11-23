@@ -9,7 +9,7 @@ responde directamente.
 * **Ruta 2 (respaldo):** **few-shot dinámico** con un banco de 110 ejemplos seleccionados por tipo de pregunta.
 * Desplegado con **Docker Compose** en una VM de Azure (4 vCPU, 8 GB).
 
-Autor: Rafael Paez Martinez 67000821 · Arquitectura de Software
+Autor: Rafael Páez Martínez · Código 67000821 · Arquitectura de Software · noviembre de 2026
 
 ---
 
@@ -52,7 +52,7 @@ Detalle de vistas y atributos de calidad en [`docs/arquitectura.md`](docs/arquit
 | Modelo | Dónde corre | Función | Por qué |
 |---|---|---|---|
 | Reglas explícitas (`app/agent/clasificador.py`) | VPS | Clasifica la mayoría de preguntas | Deterministas, explicables, sin costo |
-| Gemini 2.5 Flash (API, nivel gratuito) | Google | Clasifica cuando las reglas dudan y extrae la topología de cálculo a JSON | Tarea corta y estructurada; **no** redacta la respuesta |
+| Gemini 3.8 Flash (API, nivel gratuito) | Google | Clasifica cuando las reglas dudan y extrae la topología de cálculo a JSON | Tarea corta y estructurada; **no** redacta la respuesta |
 | `arqui-qwen2.5-3b-ft` (Qwen2.5-3B + QLoRA, GGUF Q4_K_M) | VPS, Ollama, CPU | **Redacta la respuesta final** (Ruta 1) | Exigido por la Ruta 1; aporta la forma, el contenido viene del RAG |
 | `paraphrase-multilingual-MiniLM-L12-v2` (fastembed) | VPS, CPU | Embeddings del RAG | Recupera documentos en inglés con preguntas en español |
 
@@ -91,7 +91,7 @@ tests/          pruebas de la herramienta, la rúbrica y el ciclo de decisión
 ### En local (para desarrollar)
 
 ```bash
-git clone https://github.com/SU_USUARIO/agente-arquitectura.git && cd agente-arquitectura
+git clone https://github.com/Rafaelpaezz/agente-arquitectura.git && cd agente-arquitectura
 python -m venv .venv && source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env                                        # complete los valores
@@ -169,7 +169,7 @@ Manifiesto completo con versión y licencia: [`corpus/fuentes.yaml`](corpus/fuen
 | ARC42 | Starke, G. y Hruschka, P. *Plantilla arc42* (español), commit 9057fe1 | CC BY-SA 4.0 | Sí |
 | MADR | Kopp, O., Zimmermann, O. et al. *Markdown Architectural Decision Records*, commit ba75bb1 | MIT / CC0 | Sí |
 | MSAPI | Microsoft. *Azure REST API Guidelines: Considerations for Service Design; Versioning*, commit 1c58ca7 | CC BY 4.0 | Sí |
-| ADR-AGENTE | Acosta López, M. Registros de decisión del agente (`docs/adr/`) | Propia | Sí |
+| ADR-AGENTE | Páez Martínez, R. Registros de decisión del agente (`docs/adr/`) | Propia | Sí |
 | ATAM | Kazman, R., Klein, M. y Clements, P. *ATAM: Method for Architecture Evaluation*. CMU/SEI-2000-TR-004, 2000 | © CMU | No: carga local |
 | ISO25010 | ISO/IEC 25010:2023. *Product quality model* | © ISO | No: carga local |
 | ISO42010 | ISO/IEC/IEEE 42010:2022. *Architecture description* | © ISO/IEEE | No: carga local |

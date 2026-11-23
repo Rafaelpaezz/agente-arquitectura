@@ -1,7 +1,7 @@
 ---
 status: aceptada
 date: 2026-11-23
-decision-makers: Mateo Acosta López
+decision-makers: Rafael Páez Martínez
 ---
 
 # ADR 0001. Selección del modelo base y reparto de funciones entre modelos
@@ -39,7 +39,7 @@ Reparto de funciones:
 
 | Función | Modelo | Justificación |
 |---|---|---|
-| Clasificación (solo cuando las reglas no son concluyentes) y extracción de la topología | Gemini 2.5 Flash por API (nivel gratuito) | Tarea corta con salida JSON; un modelo grande es más confiable y responde en ~1 s. No genera la respuesta final. |
+| Clasificación (solo cuando las reglas no son concluyentes) y extracción de la topología | Gemini 3.8 Flash por API (nivel gratuito) | Tarea corta con salida JSON; un modelo grande es más confiable y responde en ~1 s. No genera la respuesta final. |
 | Redacción de la respuesta final | Qwen2.5-3B-Instruct + adaptador QLoRA, GGUF Q4_K_M en Ollama | Exigido por la Ruta 1. El adaptador aporta la forma; el contenido viene de los fragmentos. |
 | Embeddings del RAG | paraphrase-multilingual-MiniLM-L12-v2 (fastembed, local) | Ver ADR 0002. |
 

@@ -108,7 +108,7 @@ def clasificar_con_llm(pregunta: str, cliente) -> Clasificacion | None:
     try:
         texto, _ = cliente.chat(
             [{"role": "system", "content": PROMPT_CLASIFICADOR}, {"role": "user", "content": pregunta}],
-            temperatura=0.0, max_tokens=200, json=True,
+            temperatura=0.0, max_tokens=400, json=True,
         )
         datos = json.loads(_extraer_json(texto))
         tipo = str(datos.get("tipo", "")).strip().lower()
