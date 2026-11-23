@@ -9,7 +9,7 @@ responde directamente.
 * **Ruta 2 (respaldo):** **few-shot dinámico** con un banco de 110 ejemplos seleccionados por tipo de pregunta.
 * Desplegado con **Docker Compose** en una VM de Azure (4 vCPU, 8 GB).
 
-Autor: Mateo Acosta López · Arquitectura de Software · noviembre de 2026
+Autor: Rafael Paez Martinez 67000821 · Arquitectura de Software
 
 ---
 
