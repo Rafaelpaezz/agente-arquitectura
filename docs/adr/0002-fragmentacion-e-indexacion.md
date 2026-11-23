@@ -53,10 +53,11 @@ Detalle (implementado en `app/rag/fragmentacion.py` y `app/rag/indice.py`):
 6. **Embeddings:** `paraphrase-multilingual-MiniLM-L12-v2` con fastembed (ONNX, CPU, 384 dimensiones), porque
    ubica en el mismo espacio frases en español e inglés con significado parecido.
 7. **Índice:** vectores normalizados en FAISS `IndexFlatIP`; producto interno = similitud coseno.
-   **Ranking:** similitud semántica + un bono de 0,08 por cada término de la pregunta que aparece en el título
-   de la sección (máximo 0,16). Motivo: en la primera prueba real, "¿Qué es el patrón write-through?" no
+   **Ranking:** similitud semántica + un bono de 0,20 por cada término de la pregunta que aparece en el título
+   de la sección (máximo 0,30). Motivo: en la primera prueba real, "¿Qué es el patrón write-through?" no
    recuperó la sección *Write-through*: el embedding multilingüe diluye el término técnico en inglés dentro de
-   una frase en español, mientras que el título de la sección lo contiene literalmente.
+   una frase en español y favorece los fragmentos en español (arc42) por idioma, no por tema. Con un bono de
+   0,08 la sección quedó en el puesto 6 (0,349 + 0,08 frente a 0,50 del primero); con 0,20 entra en el top 5.
 8. **Compuerta de evidencia:** si el fragmento semánticamente más parecido no supera `RAG_MIN_SCORE`, el agente
    responde que no hay evidencia en lugar de usar el conocimiento propio del modelo; si lo supera, se entregan los
    k primeros del ranking. El valor se calibra con `scripts/evaluar_recuperacion.py`:

@@ -1,28 +1,28 @@
 # Evaluación de la recuperación (RAG)
 
 Modelo de embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 (fastembed). Fragmentos indexados: 256. **k = 5**.
-Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,16).
+Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,30).
 Acierto: alguno de los k fragmentos recuperados pertenece al documento y sección esperados (o a una subsección).
 
 | Métrica | Valor |
 |---|---|
 | Preguntas | 19 |
-| Fragmento correcto en la posición 1 | 12 de 19 (63%) |
+| Fragmento correcto en la posición 1 | 11 de 19 (58%) |
 | Fragmento correcto entre los 3 primeros | 17 de 19 (89%) |
 | **Fragmento correcto entre los 5 primeros** | **18 de 19 (95%)** |
-| MRR@5 | 0.759 |
+| MRR@5 | 0.732 |
 
 ## Calibración del umbral (RAG_MIN_SCORE)
 
 * Puntaje máximo del 1.º fragmento en 5 preguntas fuera del corpus: **0.397**
 * Mejor puntaje mínimo entre las 19 preguntas del conjunto de evaluación: **0.398**
-* Umbral configurado: 0.38 · umbral sugerido (punto medio): **0.40**
+* Umbral configurado: 0.40 · umbral sugerido (punto medio): **0.40**
 
 | Id | Pregunta | Fuente esperada | Posición del correcto | Puntaje del 1.º | 1.º recuperado |
 |---|---|---|---|---|---|
 | EV-01 | ¿Qué es la consistencia eventual y en qué sistemas se ve? | SDP §Consistency patterns > Eventual consistency | 1 | 0.625 | [SDP, §Consistency patterns > Eventual consistency] |
 | EV-02 | En CAP, ¿qué implica escoger disponibilidad y tolerancia a p | SDP §m > AP - availability and partition tolerance | 2 | 0.591 | [SDP, §Availability vs consistency > CAP theorem > CP - cons |
-| EV-03 | ¿Cómo funciona el failover activo-pasivo? | SDP §ability patterns > Fail-over > Active-passive | 1 | 0.668 | [SDP, §Availability patterns > Fail-over > Active-passive] |
+| EV-03 | ¿Cómo funciona el failover activo-pasivo? | SDP §ability patterns > Fail-over > Active-passive | 2 | 0.524 | [SDP, §Availability patterns > Disadvantage(s): failover] |
 | EV-04 | ¿Qué pasos sigue el patrón cache-aside al leer un dato? | SDP §ache > When to update the cache > Cache-aside | 1 | 0.678 | [SDP, §Cache > When to update the cache > Cache-aside] |
 | EV-05 | ¿Qué riesgo tiene write-behind frente a escribir de inmediat | SDP § update the cache > Write-behind (write-back) | 1 | 0.390 | [SDP, §Cache > When to update the cache > Write-behind (writ |
 | EV-06 | ¿Qué es el sharding y qué ventajas da? | SDP §database management system (RDBMS) > Sharding | 1 | 0.359 | [SDP, §Database > Relational database management system (RDB |

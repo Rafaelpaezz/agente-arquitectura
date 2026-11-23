@@ -65,7 +65,7 @@ def main() -> None:
         "",
         f"Modelo de embeddings: {rec.meta['modelo']} ({rec.meta['backend']}). Fragmentos indexados: {rec.meta['fragmentos']}. "
         f"**k = {args.k}**.",
-        "Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,16).",
+        "Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,30).",
         "Acierto: alguno de los k fragmentos recuperados pertenece al documento y sección esperados (o a una subsección).",
         "",
         "| Métrica | Valor |",

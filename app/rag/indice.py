@@ -26,8 +26,8 @@ class Resultado:
 # (p. ej. "write-through" en "Cache > When to update the cache > Write-through").
 # Los embeddings multilingües diluyen los términos técnicos en inglés dentro de una pregunta en
 # español; el título de la sección es la señal más precisa de qué trata el fragmento.
-BONO_POR_TERMINO = 0.08
-BONO_MAXIMO = 0.16
+BONO_POR_TERMINO = 0.20
+BONO_MAXIMO = 0.30
 _VACIAS = set("""para como cual cuales donde cuando entre sobre esta este esto estos estas tiene tienen
 debo deberia puede pueden hace hacer usar uso sirve sirven funciona significa explica explicame dime
 que qué cómo cuál porque desde hasta segun según patron patrón sistema""".split())
@@ -74,7 +74,7 @@ class Recuperador:
 
     def buscar(self, consulta: str, k: int = 5) -> list[Resultado]:
         """1. Similitud semántica (coseno de embeddings) contra TODOS los fragmentos.
-        2. Bono si términos de la pregunta aparecen en el título de la sección (máx. 0,16).
+        2. Bono si términos de la pregunta aparecen en el título de la sección (máx. 0,30).
         3. Se ordena por semántica + bono y se devuelven los k primeros.
         El puntaje reportado sigue siendo el semántico puro (ver ADR 0002)."""
         n = len(self.fragmentos)
