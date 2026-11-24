@@ -7,23 +7,23 @@ Modelo de clasificación: openai/gpt-oss-20b. Prompt de sistema: idéntico en A 
 | Id | Tipo | A: criterios | A: puntaje | B: criterios | B: puntaje | A: latencia (s) | B: latencia (s) |
 |---|---|---|---|---|---|---|---|
 | CMP-01 | conceptual | 1 / 1 / – / 0 | 0.67 | 1 / 1 / – / 0 | 0.67 | 0.0 | 0.0 |
-| CMP-02 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 1 | 1.00 | 1.4 | 0.9 |
-| CMP-03 | seleccion | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 1 | 1.00 | 1.6 | 11.9 |
-| CMP-04 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 0 | 0.67 | 6.1 | 14.8 |
-| CMP-05 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 1 | 1.00 | 10.8 | 11.4 |
-| CMP-06 | compromisos | 1 / 1 / – / 0 | 0.67 | 1 / 1 / – / 0 | 0.67 | 12.4 | 18.4 |
-| CMP-07 | calculo | 1 / 1 / 0 / 0 | 0.50 | 1 / 1 / 1 / 1 | 1.00 | 5.5 | 17.7 |
-| CMP-08 | calculo | 1 / 1 / 0 / 1 | 0.75 | 1 / 1 / 0 / 1 | 0.75 | 3.0 | 12.3 |
-| CMP-09 | calculo | 1 / 1 / 1 / 1 | 1.00 | 1 / 0 / 1 / 1 | 0.75 | 4.4 | 21.2 |
-| CMP-10 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 1 | 1.00 | 14.2 | 19.8 |
+| CMP-02 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 1 | 1.00 | 0.6 | 1.0 |
+| CMP-03 | seleccion | 1 / 0 / – / 1 | 0.67 | 1 / 1 / – / 1 | 1.00 | 0.8 | 20.5 |
+| CMP-04 | conceptual | 1 / 0 / – / 1 | 0.67 | 0 / 0 / – / 1 | 0.33 | 9.2 | 19.1 |
+| CMP-05 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 0 | 0.67 | 7.2 | 17.1 |
+| CMP-06 | compromisos | 1 / 0 / – / 0 | 0.33 | 1 / 1 / – / 0 | 0.67 | 11.9 | 21.4 |
+| CMP-07 | calculo | 1 / 0 / 0 / 0 | 0.25 | 1 / 0 / 0 / 1 | 0.50 | 5.8 | 17.2 |
+| CMP-08 | calculo | 1 / 1 / 1 / 0 | 0.75 | 1 / 1 / 1 / 1 | 1.00 | 6.8 | 15.9 |
+| CMP-09 | calculo | 1 / 1 / 1 / 1 | 1.00 | 1 / 1 / 0 / 0 | 0.50 | 7.3 | 20.2 |
+| CMP-10 | conceptual | 1 / 1 / – / 1 | 1.00 | 1 / 1 / – / 1 | 1.00 | 10.2 | 22.3 |
 
 | Resumen | A | B |
 |---|---|---|
-| Formato | 10/10 | 10/10 |
-| Estructura | 10/10 | 9/10 |
-| Herramienta | 1/3 | 2/3 |
-| Citacion | 7/10 | 7/10 |
-| Puntaje promedio | 0.86 | 0.85 |
-| Latencia promedio de redacción (s) | 6.59 | 14.26 |
+| Formato | 10/10 | 9/10 |
+| Estructura | 6/10 | 8/10 |
+| Herramienta | 2/3 | 1/3 |
+| Citacion | 6/10 | 6/10 |
+| Puntaje promedio | 0.73 | 0.73 |
+| Latencia promedio de redacción (s) | 6.63 | 17.20 |
 
 Las respuestas completas están en el archivo .jsonl del mismo nombre.
