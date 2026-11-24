@@ -1,7 +1,7 @@
 ---
 status: aceptada
 date: 2026-11-23
-decision-makers: Mateo Acosta López
+decision-makers: Rafael Páez Martínez
 ---
 
 # ADR 0004. Canal de mensajería y despliegue

@@ -1,7 +1,7 @@
 ---
 status: aceptada
 date: 2026-11-23
-decision-makers: Mateo Acosta López
+decision-makers: Rafael Páez Martínez
 ---
 
 # ADR 0003. Criterio de la lógica de decisión del agente
