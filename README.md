@@ -139,6 +139,25 @@ ejemplos; dentro del tipo se ordenan por solapamiento de palabras clave). Criter
 **similitud vectorial** contra todo el banco (`FEWSHOT_SELECTOR=similitud`). Un prompt fijo no es few-shot dinámico:
 aquí los ejemplos cambian con cada pregunta (lo verifica `tests/test_agente.py::test_fewshot_cambia_segun_la_pregunta`).
 
+### Resultados obtenidos
+
+| Medición | Resultado | Evidencia |
+|---|---|---|
+| Recuperación (19 preguntas, k = 5) | **17/19 (89 %)** en el top 5 · 84 % en el top 3 · MRR@5 = 0,680 | [`recuperacion_top_k.md`](evidencias/recuperacion_top_k.md) |
+| Umbral de evidencia | 0,40 (máx. fuera del corpus 0,397 · mín. dentro 0,398) | misma tabla |
+| Fine-tuning QLoRA | 100 train / 10 val · 3 épocas · T4 · 394 s · pérdida train 1,04 → 0,69 · val 0,74 → 0,66 | [`evidencias/finetune/`](evidencias/finetune/) |
+| Ruta 1: base vs ajustado (10 preguntas) | rúbrica **0,62 → 0,88** · estructura 2/10 → 9/10 · herramienta 0/3 → 2/3 | [`comparacion_modelo.md`](evidencias/comparacion_modelo.md) |
+| Latencia de redacción en la VM (CPU) | **66,7 s → 44,5 s** por respuesta | misma tabla |
+| Ruta 2: sin vs con few-shot (Groq gpt-oss-20b) | rúbrica 0,73 = 0,73 · latencia 6,6 s → 17,2 s | [`comparacion_fewshot.md`](evidencias/comparacion_fewshot.md) |
+| Trazas | 12 conversaciones, una con corrección (`herramienta → rag`) | [`evidencias/trazas/`](evidencias/trazas/) |
+| VPS | Azure Standard_B4als_v2 · 4 vCPU AMD EPYC 7763 · 8 GB · Ubuntu 24.04 | [`vps_caracteristicas.txt`](evidencias/vps_caracteristicas.txt) |
+
+**Lectura.** El ajuste con QLoRA mejoró sobre todo la *estructura* de la respuesta según el tipo de pregunta y el uso
+del resultado de la herramienta, y redujo la latencia porque el modelo ajustado es más conciso. Con un modelo grande,
+el few-shot dinámico no mejoró la rúbrica y casi triplicó la latencia por los tokens adicionales; por eso la Ruta 1
+es la configuración de producción y el few-shot queda como respaldo (`/fewshot on`). Limitaciones: muestra pequeña
+(10 preguntas de comparación) y redacción en CPU sin GPU.
+
 ## Declaración de separación entre entrenamiento y evaluación
 
 Ninguna pregunta del conjunto de evaluación ni de las diez de comparación aparece, literal ni reformulada, en el
