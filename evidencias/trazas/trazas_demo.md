@@ -6,7 +6,7 @@
 - Acción final: **directa**
 
 ```
-Traza 75b76e1e1a13
+Traza 1a9fa6b01277
 • clasificar: tipo=saludo, metodo=reglas, razon=regla 'saludo' con 3 puntos (siguiente 0)
 • decidir: tipo=saludo, accion=directa
 • responder_directo: tipo=saludo
@@ -31,26 +31,22 @@ Comandos: /ayuda, /fuentes, /traza.
 - Acción final: **rag**
 
 ```
-Traza 04782e22e968
+Traza e3f308224516
 • clasificar: tipo=conceptual, metodo=reglas, razon=regla 'conceptual' con 4 puntos (siguiente 0)
 • decidir: tipo=conceptual, accion=rag
-• recuperar: consulta=¿Qué es el patrón write-through?, k=5, umbral=0.4, mejor_puntaje=0.5, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=5, herramienta=False, modelo=openai/gpt-oss-120b
+• recuperar: consulta=¿Qué es el patrón write-through?, k=5, umbral=0.4, mejor_puntaje=0.501, hay_evidencia=True
+• armar_prompt: fewshot=False, criterio=None, fragmentos=5, herramienta=False, modelo=arqui-qwen2.5-3b-ft
 • revisar_citas: sin_citas=False
-Latencias: clasificacion 0.0s, recuperacion 0.012s, redaccion 1.494s, total 1.506s
+Latencias: clasificacion 0.0s, recuperacion 0.013s, redaccion 49.004s, total 49.017s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** Write‑through es un patrón de caché en el que la aplicación escribe y actualiza los datos directamente en la caché y la caché, de forma síncrona, escribe la misma información en el almacén permanente (base de datos) antes de devolver la respuesta.  
+**Respuesta:** Es un patrón de cache que sincroniza la escritura en la caché con la base de datos.
 **Explicación:**
-- La aplicación realiza la operación de inserción/actualización en la caché y la caché se encarga de escribir de forma síncrona en la base de datos, devolviendo el control al llamador solo después de que la escritura persista. [SDP, §Cache > When to update the cache > Write-through]
-- Este patrón garantiza que los datos en la caché nunca estén obsoletos, ya que siempre se reflejan en el almacén subyacente. [SDP, §Cache > When to update the cache > Write-through]
-- La operación de escritura es más lenta porque incluye la escritura en la base de datos, pero las lecturas posteriores de los datos recién escritos son rápidas. [SDP, §Cache > When to update the cache > Write-through]
-- Una desventaja es el mayor costo de latencia en escrituras y que nodos nuevos no tendrán datos en caché hasta que se actualicen en la base de datos; puede mitigarse combinando con cache‑aside. [SDP, §Cache > When to update the cache > Write-through > Disadvantage(s): write through]  
-**Fuentes:**  
-- [SDP, §Cache > When to update the cache > Write-through]  
-- [SDP, §Cache > When to update the cache > Write-through > Disadvantage(s): write through]
+- Write-through es una técnica de cache que sincroniza la escritura en la caché con la base de datos, asegurando que los cambios se realicen en ambos lugares. [SDP, §Cache > When to update the cache > Write-through]
+- Es una técnica de cache que garantiza que los cambios se realicen en la caché y en la base de datos. [SDP, §Cache > When to update the cache > Write-through > Disadvantage(s): write through]
+**Fuentes:** [SDP, §Cache > When to update the cache > Write-through]; [SDP, §Cache > When to update the cache > When to use cache-aside and write-through]; [ARC42, §Conceptos Transversales (Cross-cutting)]; [ARC42, §Glosario]
 
 </details>
 
@@ -60,27 +56,25 @@ Latencias: clasificacion 0.0s, recuperacion 0.012s, redaccion 1.494s, total 1.50
 - Acción final: **rag**
 
 ```
-Traza 532fff342ab0
+Traza 9de66b44f0c6
 • clasificar: tipo=seleccion, metodo=reglas, razon=regla 'seleccion' con 3 puntos (siguiente 0)
 • decidir: tipo=seleccion, accion=rag
-• recuperar: consulta=Necesito servir archivos estáticos a usuarios de varios continentes, ¿qué me recomiendas?, k=5, umbral=0.4, mejor_puntaje=0.448, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=5, herramienta=False, modelo=openai/gpt-oss-120b
+• recuperar: consulta=Necesito servir archivos estáticos a usuarios de varios continentes, ¿qué me recomiendas?, k=5, umbral=0.4, mejor_puntaje=0.449, hay_evidencia=True
+• armar_prompt: fewshot=False, criterio=None, fragmentos=5, herramienta=False, modelo=arqui-qwen2.5-3b-ft
 • revisar_citas: sin_citas=False
-Latencias: clasificacion 0.0s, recuperacion 0.035s, redaccion 0.747s, total 0.783s
+Latencias: clasificacion 0.0s, recuperacion 0.06s, redaccion 45.721s, total 45.781s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** Utiliza una CDN (Content Delivery Network).  
-
-**Explicación:**  
-- Una CDN distribuye los archivos estáticos (imágenes, videos, etc.) en servidores ubicados cerca de los usuarios, reduciendo significativamente la latencia para clientes en diferentes continentes.  
-- Al servir el contenido desde la CDN, tus servidores de origen no tienen que atender esas peticiones, lo que también disminuye la carga y mejora la disponibilidad.  
-- Aunque implica costos y la necesidad de cambiar las URLs de los recursos estáticos, estos inconvenientes se compensan con la mejora de rendimiento y la experiencia de usuario global.  
-
-**Fuentes:**  
-- [SDP, §Content delivery network]  
-- [SDP, §Content delivery network > Disadvantage(s): CDN]
+**Respuesta:** Telegram con webhook (requiere URL pública con HTTPS).
+**Explicación:**
+- La opción con webhook permite un enlace seguro y no requiere una URL pública externa.
+- Los archivos estánticos son más rápidos que el webhook, pero el webhook es más seguro.
+- El webhook se conecta a través de HTTPS, lo que garantiza la seguridad del enlace.
+- Los usuarios de varios continentes pueden tener problemas con las conexiones públicas.
+**Fuentes:** [ADR-AGENTE, §ADR 0004. Canal de mensajería y despliegue > Considered Options], [SRE, p. 5].
+RESULTADO DE LA HERRAMIENTA: No se menciona en los fragmentos.
 
 </details>
 
@@ -90,27 +84,22 @@ Latencias: clasificacion 0.0s, recuperacion 0.035s, redaccion 0.747s, total 0.78
 - Acción final: **rag**
 
 ```
-Traza 93e28b2c4e19
-• clasificar: tipo=conceptual, metodo=llm, razon=Pregunta sobre definición y efectos de desnormalizar bases de datos
+Traza a40fef203d89
+• clasificar: tipo=conceptual, metodo=llm, razon=Pregunta sobre definición y efectos de desnormalizar
 • decidir: tipo=conceptual, accion=rag
 • recuperar: consulta=¿Qué se gana y qué se pierde al desnormalizar una base de datos?, k=5, umbral=0.4, mejor_puntaje=0.679, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=5, herramienta=False, modelo=openai/gpt-oss-120b
+• armar_prompt: fewshot=False, criterio=None, fragmentos=5, herramienta=False, modelo=arqui-qwen2.5-3b-ft
 • revisar_citas: sin_citas=False
-Latencias: clasificacion 0.404s, recuperacion 0.031s, redaccion 1.545s, total 1.98s
+Latencias: clasificacion 0.227s, recuperacion 0.023s, redaccion 36.917s, total 37.167s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** Al desnormalizar se obtienen lecturas más rápidas y menos necesidad de joins, pero se paga con duplicación de datos, mayor complejidad para mantener la consistencia y peor rendimiento en escrituras intensas.  
-
-**Explicación:**  
-- La desnormalización duplica la información, lo que aumenta el espacio ocupado. [SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization]  
-- Mantener sincronizadas las copias redundantes requiere restricciones y lógica adicional, incrementando la complejidad del diseño. [SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization]  
-- Bajo alta carga de escrituras, una base desnormalizada puede rendir peor que una normalizada. [SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization]  
-- Al eliminar la necesidad de joins (implícito en la denormalización y en la práctica de NoSQL), las consultas de lectura suelen ser más rápidas y simples.  
-
-**Fuentes:**  
-- [SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization]
+**Respuesta:** Se duplica la información y puede ser más compleja. Se puede mejorar el rendimiento con menos repeticiones.
+**Explicación:**
+- Data is duplicated. (SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization)
+- Constraints can help redundant copies of information stay in sync, which increases complexity of the database design. (SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization)
+**Fuentes:** [SDP, §Database > Relational database management system (RDBMS) > Denormalization > Disadvantage(s): denormalization]
 
 </details>
 
@@ -121,27 +110,25 @@ Latencias: clasificacion 0.404s, recuperacion 0.031s, redaccion 1.545s, total 1.
 - Corrección: herramienta → rag (se clasificó como cálculo pero la pregunta no trae valores numéricos)
 
 ```
-Traza 8fda8a257548
+Traza 1145a1b22c5c
 • clasificar: tipo=calculo, metodo=reglas, razon=regla 'calculo' con 2 puntos (siguiente 0)
 • decidir: tipo=calculo, accion=herramienta
 • corregir: de=herramienta, a=rag, motivo=se clasificó como cálculo pero la pregunta no trae valores numéricos
 • recuperar: consulta=¿Cómo se calcula la disponibilidad en serie?, k=5, umbral=0.4, mejor_puntaje=0.702, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=5, herramienta=False, modelo=openai/gpt-oss-120b
+• armar_prompt: fewshot=False, criterio=None, fragmentos=5, herramienta=False, modelo=arqui-qwen2.5-3b-ft
 • revisar_citas: sin_citas=False
-Latencias: clasificacion 0.0s, recuperacion 0.026s, redaccion 4.98s, total 5.007s
+Latencias: clasificacion 0.0s, recuperacion 0.026s, redaccion 51.033s, total 51.059s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** La disponibilidad en serie se calcula multiplicando las disponibilidades de cada componente.  
-
+**Respuesta:** La disponibilidad se calcula como el producto de las disponibilidades individuales.
 **Explicación:**
-- Cuando los componentes están en secuencia, la disponibilidad total disminuye porque todos deben estar operativos simultáneamente.  
-- La fórmula es: **Disponibilidad (Total) = Disponibilidad (Foo) × Disponibilidad (Bar)**. [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence]  
-- Por ejemplo, si Foo y Bar tienen 99.9 % cada uno, la disponibilidad en serie es 0.999 × 0.999 = 0.998, es decir, 99.8 %. [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence]  
-
-**Fuentes:**  
-- [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence]
+- La disponibilidad es la probabilidad de que un sistema funcione correctamente. [SDP, §Availability patterns > Availability in numbers]
+- En lugar de usar métricas de uptime/downtime, se define en términos de éxito de las solicitudes. [SRE, p. 3]
+- Se calcula como el porcentaje de solicitudes exitosas en un periodo de tiempo dado. [SRE, p. 3]
+- La disponibilidad acumulada es la media ponderada de las disponibilidades individuales. [SDP, §Availability patterns > Availability in numbers]
+**Fuentes:** [SDP, §Availability patterns > Availability in numbers]; [SRE, p. 3]; [SDP, §Availability patterns > Availability in numbers]
 
 </details>
 
@@ -151,30 +138,25 @@ Latencias: clasificacion 0.0s, recuperacion 0.026s, redaccion 4.98s, total 5.007
 - Acción final: **herramienta**
 
 ```
-Traza 43e7e239e514
+Traza fc255215ff73
 • clasificar: tipo=calculo, metodo=reglas, razon=regla 'calculo' con 5 puntos (siguiente 3)
 • decidir: tipo=calculo, accion=herramienta
 • herramienta: intento=1, metodo=explicita, expresion=serie(api=99.9%, bd=99.95%), disponibilidad=0.9985005000000001
 • recuperar: consulta=disponibilidad en serie y en paralelo, availability in sequence vs in parallel, k=2, umbral=0.4, mejor_puntaje=0.772, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=2, herramienta=True, modelo=openai/gpt-oss-120b
+• armar_prompt: fewshot=False, criterio=None, fragmentos=2, herramienta=True, modelo=arqui-qwen2.5-3b-ft
 • revisar_citas: sin_citas=False
-Latencias: clasificacion 0.0s, herramienta 0.0s, recuperacion 0.027s, redaccion 20.387s, total 20.414s
+Latencias: clasificacion 0.0s, herramienta 0.0s, recuperacion 0.033s, redaccion 12.47s, total 12.503s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** En una topología en serie, la disponibilidad total del servicio se obtiene multiplicando las disponibilidades de cada componente; por eso la disponibilidad del sistema con `api=99.9 %` y `bd=99.95 %` es 99.85 % (≈2.82 nueves), y cualquier falla en cualquiera de los dos componentes provoca la caída del servicio.
-
+**Respuesta:** Topología serie con una caída esperada de 13.14 horas al año.
 **Explicación:**
-- En serie, el cálculo es **Availability Total = Availability (api) × Availability (bd)**, tal como indica el fragmento “In sequence” [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence].
-- Con `api=0.999` y `bd=0.9995`, la multiplicación da `0.999 × 0.9995 = 0.9985` → 99.8500 % de disponibilidad (2.82 nueves) (resultado de la herramienta).
-- Cada componente es un **punto único de falla**: si la API o la base de datos falla, el servicio completo se interrumpe (puntos únicos de falla: api, bd).
-- El **eslabón más débil** es la API (99.9 %), porque su disponibilidad es ligeramente menor que la de la base de datos.
-- La **caída esperada** se traduce en 13.14 h al año (≈ 0.55 días) o 65.7 min al mes, derivada de la disponibilidad total calculada.
-
-**Fuentes:**  
-- [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence]  
-- Resultado de la herramienta (topología, disponibilidad total y caída esperada).
+- En serie, la disponibilidad total es el producto de las disponibilidades individuales.
+- La disponibilidad total es menor que la disponibilidad más baja de los componentes.
+- El eje más débil es el componente con la menor disponibilidad.
+- Hay un único punto de falla en la cadena principal.
+**Fuentes:** [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence]
 
 </details>
 
@@ -184,7 +166,7 @@ Latencias: clasificacion 0.0s, herramienta 0.0s, recuperacion 0.027s, redaccion 
 - Acción final: **herramienta_error**
 
 ```
-Traza 2deeac752649
+Traza 419c3f2aa000
 • clasificar: tipo=calculo, metodo=reglas, razon=regla 'calculo' con 5 puntos (siguiente 0)
 • decidir: tipo=calculo, accion=herramienta
 • herramienta: intento=1, metodo=explicita, expresion=serie(api=99.9%, paralelo(bd1=99.5%, bd2=99.5%), error=la expresión terminó antes de tiempo (¿falta cerrar un paréntesis?)
@@ -208,20 +190,25 @@ Latencias: clasificacion 0.0s, total 0.0s
 - Acción final: **herramienta**
 
 ```
-Traza 4ffb0a019f3b
+Traza 779ad59d5813
 • clasificar: tipo=calculo, metodo=reglas, razon=regla 'calculo' con 3 puntos (siguiente 1)
 • decidir: tipo=calculo, accion=herramienta
 • herramienta: intento=1, metodo=llm, expresion=serie(balanceador=99.99%, paralelo(servidor1=99.5%, servidor2=99.5%, servidor3=99.5%), base_datos=99.9%), disponibilidad=0.9988999751374875
 • recuperar: consulta=disponibilidad en serie y en paralelo, availability in sequence vs in parallel, k=2, umbral=0.4, mejor_puntaje=0.772, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=2, herramienta=True, modelo=openai/gpt-oss-120b
-• revisar_citas: sin_citas=True
-Latencias: clasificacion 0.0s, herramienta 0.0s, recuperacion 0.016s, redaccion 16.779s, total 17.273s
+• armar_prompt: fewshot=False, criterio=None, fragmentos=2, herramienta=True, modelo=arqui-qwen2.5-3b-ft
+• revisar_citas: sin_citas=False
+Latencias: clasificacion 0.0s, herramienta 0.0s, recuperacion 0.017s, redaccion 21.157s, total 21.371s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** La disponibilidad total es 99.8900 % (2.96 nueves), con una caída esperada de 9.64 h al año.  
-Los puntos únicos de falla son el balanceador y la base de datos.
+**Respuesta:** 99.8900 %.
+**Explicación:**
+- La disponibilidad total se calcula multiplicando las disponibilidades individuales, [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence].
+- El balanceador tiene una disponibilidad de 99.99%, y cada servidor y la base de datos tienen 99.5%.
+- La disponibilidad total es entonces: 0.9999 * (0.995 * 0.995 * 0.995) * 0.999 = 0.998900.
+- El eslabón más débil de la cadena principal es la base de datos, con una disponibilidad de 99.9%.
+**Fuentes:** [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In sequence], [SDP, §Availability patterns > Availability in numbers > Availability in parallel vs in sequence > In parallel].
 
 </details>
 
@@ -231,18 +218,23 @@ Los puntos únicos de falla son el balanceador y la base de datos.
 - Acción final: **rag**
 
 ```
-Traza aedd07e39878
+Traza eebb6c105bd5
 • clasificar: tipo=conceptual, metodo=llm, razon=Pregunta sobre explicación de uso de FAISS con búsqueda exacta
 • decidir: tipo=conceptual, accion=rag
 • recuperar: consulta=¿Por qué el agente usa FAISS con búsqueda exacta?, k=5, umbral=0.4, mejor_puntaje=0.522, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=5, herramienta=False, modelo=openai/gpt-oss-120b
-• revisar_citas: sin_citas=True
-Latencias: clasificacion 0.671s, recuperacion 0.034s, redaccion 17.164s, total 17.869s
+• armar_prompt: fewshot=False, criterio=None, fragmentos=5, herramienta=False, modelo=arqui-qwen2.5-3b-ft
+• revisar_citas: sin_citas=False
+Latencias: clasificacion 0.214s, recuperacion 0.016s, redaccion 54.155s, total 54.386s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** No se dispone de información en los fragmentos proporcionados que explique por qué el agente utiliza FAISS con búsqueda exacta.
+**Respuesta:** Porque las reglas y expresiones son fáciles de evaluar.
+**Explicación:**
+- Las reglas son simples, no requieren llamadas a modelos. [ADR-AGENTE, §ADR 0003. Criterio de la lógica de decisión del agente > Decision Outcome]
+- Si una pregunta trae expresiones numéricas, se usa un modelo para extraerlas. [ADR-AGENTE, §ADR 0003. Criterio de la lógica de decisión del agente > Decision Outcome]
+- La búsqueda exacta es más rápida y fiable que la aproximada. [ADR-AGENTE, §ADR 0003. Criterio de la lógica de decisión del agente > More Information]
+**Fuentes:** [ADR-AGENTE, §ADR 0003. Criterio de la lógica de decisión del agente > Decision Outcome], [ADR-AGENTE, §ADR 0003. Criterio de la lógica de decisión del agente > More Information]
 
 </details>
 
@@ -252,11 +244,11 @@ Latencias: clasificacion 0.671s, recuperacion 0.034s, redaccion 17.164s, total 1
 - Acción final: **directa**
 
 ```
-Traza 6ea97dcf8807
+Traza 10cc52d0d402
 • clasificar: tipo=fuera_de_dominio, metodo=llm, razon=Pregunta geográfica, no relacionada con arquitectura de software
 • decidir: tipo=fuera_de_dominio, accion=directa
 • responder_directo: tipo=fuera_de_dominio
-Latencias: clasificacion 0.286s, total 0.286s
+Latencias: clasificacion 0.358s, total 0.358s
 ```
 
 <details><summary>Respuesta</summary>
@@ -271,12 +263,12 @@ Esa pregunta está fuera del tema de la asignatura (Arquitectura de Software), a
 - Acción final: **sin_evidencia**
 
 ```
-Traza 82e4ee7ea326
+Traza 897803a53310
 • clasificar: tipo=conceptual, metodo=reglas, razon=regla 'conceptual' con 3 puntos (siguiente 0)
 • decidir: tipo=conceptual, accion=rag
 • recuperar: consulta=¿Qué es la computación cuántica topológica de Majorana?, k=5, umbral=0.4, mejor_puntaje=0.347, hay_evidencia=False
 • sin_evidencia: umbral=0.4
-Latencias: clasificacion 0.0s, recuperacion 0.007s, total 0.007s
+Latencias: clasificacion 0.0s, recuperacion 0.012s, total 0.012s
 ```
 
 <details><summary>Respuesta</summary>
@@ -295,22 +287,24 @@ Latencias: clasificacion 0.0s, recuperacion 0.007s, total 0.007s
 - Acción final: **rag**
 
 ```
-Traza e9640581ed9a
+Traza 7495f83f44b5
 • clasificar: tipo=conceptual, metodo=llm, razon=Pregunta sobre definir contenido de sección de riesgos y deuda técnica
 • decidir: tipo=conceptual, accion=rag
 • recuperar: consulta=¿Qué debe ir en la sección de riesgos y deuda técnica de arc42?, k=5, umbral=0.4, mejor_puntaje=0.657, hay_evidencia=True
-• armar_prompt: fewshot=True, criterio=clasificacion, fragmentos=5, herramienta=False, modelo=openai/gpt-oss-120b
+• armar_prompt: fewshot=False, criterio=None, fragmentos=5, herramienta=False, modelo=arqui-qwen2.5-3b-ft
 • revisar_citas: sin_citas=False
-Latencias: clasificacion 0.403s, recuperacion 0.013s, redaccion 13.394s, total 13.81s
+Latencias: clasificacion 0.174s, recuperacion 0.017s, redaccion 65.467s, total 65.658s
 ```
 
 <details><summary>Respuesta</summary>
 
-**Respuesta:** Debe contener una lista de los riesgos técnicos y la deuda técnica identificada, ordenada por prioridad, y opcionalmente medidas sugeridas para mitigarlos o reducirlos.  
+**Respuesta:** Una lista ordenada por prioridad de riesgos y/o deuda técnica.
 **Explicación:**
-- La sección incluye “una lista de los riesgos técnicos o deuda técnica identificada, ordenada por prioridad”. [ARC42, §Riesgos y deuda técnica]
-- Su motivación es permitir la detección sistemática y evaluación de riesgos y deuda técnica para la planificación y medición del proyecto. [ARC42, §Riesgos y deuda técnica]
-- La forma recomendada es presentar la lista de riesgos y/o deuda técnica, pudiendo añadir medidas sugeridas para minimizar, mitigar o evitar los riesgos o reducir la deuda. [ARC42, §Riesgos y deuda técnica]  
-**Fuentes:** [ARC42, §Riesgos y deuda técnica]
+- La sección de riesgos y deuda técnica requiere una identificación sistemática y evaluación de riesgos y deuda técnica (SDP, §Riesgos y deuda técnica).
+- Se deben identificar y categorizar como riesgo o no riesgo, sensibilidad o trato de punto, y agruparlos en tres listas.
+- Se deben asociar con las altas prioridades de atributos de utilidad (ATAM, p. 42).
+- Se deben identificar componentes, conectores, configuración y restricciones involucrados en cada escenario generado (ATAM, p. 42).
+- Se deben identificar sensibilidad y trato de punto para cada escenario generado (ATAM, p. 42).
+**Fuentes:** [ARC42, §Riesgos y deuda técnica]; [ATAM, p. 42]; [ATAM, p. 42]
 
 </details>

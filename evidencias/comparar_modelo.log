@@ -1,3 +1,14 @@
 nohup: ignoring input
-[0;93m2026-11-23 21:21:40.435813170 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+[0;93m2026-11-24 13:25:30.554990570 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
 CMP-01 0.667 0.667
+CMP-02 0.667 1.0
+CMP-03 0.667 0.667
+CMP-04 0.667 1.0
+CMP-05 1.0 1.0
+CMP-06 0.667 1.0
+CMP-07 0.5 0.75
+CMP-08 0.5 1.0
+CMP-09 0.5 1.0
+CMP-10 0.333 0.667
+
+Resultados en /app/evidencias/comparacion_modelo.md
