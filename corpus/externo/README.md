@@ -21,6 +21,14 @@ Por eso esta carpeta está en `.gitignore` (salvo este README). Se publica la re
 3. Reindexe: `docker compose run --rm agente python -m scripts.ingest`
    (o `python -m scripts.ingest` en local).
 
+### Estado en esta entrega
+
+* **Indexados:** ATAM y SRE (cargados en el VPS).
+* **Solo referencia, no indexados** (`indexado: false` en `fuentes.yaml`): ISO/IEC 25010 e ISO/IEC/IEEE 42010
+  son documentos de pago y no se contó con una copia; el Azure Well-Architected Framework se dejó fuera para
+  mantener el corpus acotado a los temas evaluados. Para incluir cualquiera de ellos: copie el archivo con el
+  nombre de la tabla, quite la línea `indexado: false` de su entrada y reindexe.
+
 El indexador lee los PDF página por página, así que las citas de estos documentos indican el
 **número de página**. Si un archivo no está, el indexador lo informa y sigue con el resto:
 el agente funciona igual, solo que sin esa fuente.

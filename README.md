@@ -189,13 +189,18 @@ Manifiesto completo con versión y licencia: [`corpus/fuentes.yaml`](corpus/fuen
 | MADR | Kopp, O., Zimmermann, O. et al. *Markdown Architectural Decision Records*, commit ba75bb1 | MIT / CC0 | Sí |
 | MSAPI | Microsoft. *Azure REST API Guidelines: Considerations for Service Design; Versioning*, commit 1c58ca7 | CC BY 4.0 | Sí |
 | ADR-AGENTE | Páez Martínez, R. Registros de decisión del agente (`docs/adr/`) | Propia | Sí |
+| HBK | Hassan, S., Bahsoon, R. y Kazman, R. *Microservice transition and its granularity problem: A systematic mapping study*. Software: Practice and Experience 50(9), 2020. [doi:10.1002/spe.2869](https://doi.org/10.1002/spe.2869) | CC BY 4.0 | Sí |
 | ATAM | Kazman, R., Klein, M. y Clements, P. *ATAM: Method for Architecture Evaluation*. CMU/SEI-2000-TR-004, 2000 | © CMU | No: carga local |
-| ISO25010 | ISO/IEC 25010:2023. *Product quality model* | © ISO | No: carga local |
-| ISO42010 | ISO/IEC/IEEE 42010:2022. *Architecture description* | © ISO/IEEE | No: carga local |
+| ISO25010 | ISO/IEC 25010:2023. *Product quality model* | © ISO | No: solo referencia, no indexado |
+| ISO42010 | ISO/IEC/IEEE 42010:2022. *Architecture description* | © ISO/IEEE | No: solo referencia, no indexado |
 | SRE | Beyer, B. et al. *Site Reliability Engineering*, cap. 3 y 4. O'Reilly, 2016 | CC BY-NC-ND 4.0 | No: carga local |
-| WAF | Microsoft. *Azure Well-Architected Framework* | Términos de Microsoft Learn | No: carga local |
+| WAF | Microsoft. *Azure Well-Architected Framework* | Términos de Microsoft Learn | No: solo referencia, no indexado |
 
 Procedimiento de carga local de los no redistribuibles: [`corpus/externo/README.md`](corpus/externo/README.md).
+
+El índice cubre **9 documentos** de cinco tipos: artículo revisado por pares (HBK), reporte técnico (ATAM),
+documentación oficial (MSAPI), documentación técnica y metodologías (SDP, 12F, ARC42, MADR, SRE) y los ADR propios.
+Los estándares ISO se citan como referencia, pero no se indexaron porque son de pago.
 
 ## Entregables
 

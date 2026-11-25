@@ -179,6 +179,8 @@ def fragmentar_corpus(dir_corpus: Path) -> tuple[list[Fragmento], list[str]]:
     fragmentos: list[Fragmento] = []
     avisos: list[str] = []
     for doc in cargar_manifiesto(dir_corpus):
+        if doc.get("indexado", True) is False:
+            continue  # referencia citada en la lista de fuentes, fuera del índice
         ruta = dir_corpus / doc["ruta"]
         if not ruta.exists():
             avisos.append(f"{doc['id']}: no se encontró {ruta.relative_to(dir_corpus)} (ver corpus/externo/README.md)")

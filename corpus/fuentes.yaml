@@ -71,6 +71,16 @@ documentos:
     ruta: "../docs/adr"
 
   # ---------- Documentos externos (no redistribuibles: solo referencia) ----------
+  - id: HBK
+    titulo: "Microservice transition and its granularity problem: A systematic mapping study"
+    autor: "Sara Hassan, Rami Bahsoon, Rick Kazman"
+    tipo: "artículo revisado por pares"
+    url: "https://doi.org/10.1002/spe.2869"
+    version: "Software: Practice and Experience, vol. 50, n.º 9, pp. 1651-1681, 2020 (versión del editor)"
+    licencia: "CC BY 4.0"
+    redistribuible: true
+    ruta: "abierto/hassan-bahsoon-kazman-2020"
+
   - id: ATAM
     titulo: "ATAM: Method for Architecture Evaluation (CMU/SEI-2000-TR-004)"
     autor: "Rick Kazman, Mark Klein, Paul Clements"
@@ -89,6 +99,7 @@ documentos:
     version: "2023"
     licencia: "Copyright ISO (documento de pago): no se redistribuye"
     redistribuible: false
+    indexado: false   # referencia citada; no se incluyó en el índice de esta entrega (ver corpus/externo/README.md)
     ruta: "externo/ISO_IEC_25010_2023.pdf"
 
   - id: ISO42010
@@ -99,6 +110,7 @@ documentos:
     version: "2022"
     licencia: "Copyright ISO/IEEE: no se redistribuye"
     redistribuible: false
+    indexado: false   # referencia citada; no se incluyó en el índice de esta entrega (ver corpus/externo/README.md)
     ruta: "externo/ISO_IEC_IEEE_42010_2022.pdf"
 
   - id: SRE
@@ -119,4 +131,5 @@ documentos:
     version: "consultado en noviembre de 2026"
     licencia: "Términos de uso de Microsoft Learn: se carga localmente"
     redistribuible: false
+    indexado: false   # referencia citada; no se incluyó en el índice de esta entrega (ver corpus/externo/README.md)
     ruta: "externo/Azure_Well_Architected.pdf"
