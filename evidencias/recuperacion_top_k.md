@@ -1,6 +1,6 @@
-# Evaluación de la recuperación (RAG)
+﻿# Evaluación de la recuperación (RAG)
 
-Modelo de embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 (fastembed). Fragmentos indexados: 443. **k = 5**.
+Modelo de embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 (fastembed). Fragmentos indexados: 555. **k = 5**.
 Ranking: similitud semántica + bono por términos de la pregunta en el título de la sección (máx. 0,30).
 Acierto: alguno de los k fragmentos recuperados pertenece al documento y sección esperados (o a una subsección).
 
